@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حملة توعوية عن الأمن السيبراني</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #095394;
+        }
+        .message-box {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #03226c;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        .message-box h1 {
+            color: #333;
+        }
+        .message-box p {
+            margin: 20px 0;
+            color: #df1111;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .buttons .yes {
+            background-color: #4c51af;
+            color: white;
+        }
+        .buttons .no {
+            background-color: #f44336;
+            color: white;
+        }
+        .buttons button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box" id="mainMessage">
+        <h1>هل تسمح بتشغيل الكاميرا؟</h1>
+        <div class="buttons">
+            <button class="yes" onclick="allowCamera()">نعم</button>
+            <button class="no" onclick="denyCamera()">لا</button>
+        </div>
+    </div>
+
+    <div class="message-box" id="successMessage" style="display: none;">
+        <h1>🎉 احسنت 🎉</h1>
+        <p>احسنت هذا قرار حكيم لحماية خصوصيتك</p>
+        <p>من المهم دائما ان تكون حذر بشأن الأذونات التي تمنحها لأي تطبيق او موقع</p>
+        <p>لا تدع أحدا يصل الى كاميرتك دون ان تكون واثق من المصدر.</p>
+    </div>
+
+    <div class="message-box" id="warningMessage" style="display: none;">
+        <h1>⚠️ ماذا لو؟ ⚠️</h1>
+        <p>ماذا لو كان أحد المخترقين يراك الآن؟ا!</p>
+        <p>كن حذرا" السماح للتطبيقات بمشاركة كاميرتك يمكن ان يعرض خصوصيتك للخطر"</p>
+        <p></p>
+    </div>
+
+    <script>
+        function allowCamera() {
+            // طلب إذن تشغيل الكاميرا
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    document.body.style.background = "url('') no-repeat center center fixed";
+document.body.style.backgroundSize = "cover";
+
+                    // إخفاء الرسالة الرئيسية وعرض رسالة التحذير
+                    document.getElementById('mainMessage').style.display = 'none';
+                    document.getElementById('warningMessage').style.display = 'block';
+                })
+                .catch(() => {
+                    alert('تعذر الوصول إلى الكاميرا. ربما رفضت الإذن.');
+                });
+        }
+
+        function denyCamera() {
+            //إخفاء الرسالة الرئيسية وعرض رسالة النجاح
+            document.getElementById('mainMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
